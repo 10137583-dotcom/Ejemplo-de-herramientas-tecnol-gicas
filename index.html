@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Soul | Gestión Empresarial</title>
+
+  <style>
+    :root {
+      --dark: #25382f;
+      --green: #536b58;
+      --cream: #f7f4ed;
+      --white: #ffffff;
+      --gold: #d5b879;
+      --gray: #69736d;
+      --red: #b94d4d;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--cream);
+      color: var(--dark);
+    }
+
+    header {
+      background: var(--dark);
+      color: white;
+      padding: 25px 18px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 34px;
+      letter-spacing: 4px;
+    }
+
+    header p {
+      margin-bottom: 0;
+      color: #e4dfd1;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 15px;
+      background: var(--green);
+    }
+
+    nav button {
+      background: transparent;
+      border: 1px solid white;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    nav button:hover {
+      background: white;
+      color: var(--dark);
+    }
+
+    main {
+      width: 92%;
+      max-width: 1000px;
+      margin: 25px auto;
+    }
+
+    .intro {
+      text-align: center;
+      padding: 15px;
+    }
+
+    .intro h2 {
+      font-size: 27px;
+    }
+
+    .panel {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 3px 12px #0000000d;
+    }
+
+    .panel h2 {
+      margin-top: 0;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      margin-top: 7px;
+      border: 1px solid #ccd2cc;
+      border-radius: 6px;
+      font: inherit;
+      background: white;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 90px;
+    }
+
+    .primary {
+      width: 100%;
+      padding: 13px;
+      margin-top: 20px;
+      background: var(--dark);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .primary:hover {
+      background: var(--green);
+    }
+
+    .secondary {
+      background: var(--gold);
+      color: var(--dark);
+      border: none;
+      border-radius: 6px;
+      padding: 10px 14px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+
+    .stat {
+      background: #e8ece5;
+      padding: 18px 8px;
+      text-align: center;
+      border-radius: 10px;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 27px;
+      margin-bottom: 6px;
+    }
+
+    .filters {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    .filters select {
+      flex: 1;
+      min-width: 150px;
+    }
+
+    .report {
+      border: 1px solid #dce1da;
+      border-left: 5px solid var(--gold);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 14px;
+      overflow-wrap: anywhere;
+    }
+
+    .report.resolved {
+      border-left-color: var(--green);
+      background: #f6faf5;
+    }
+
+    .report h3 {
+      margin-top: 0;
+    }
+
+    .report p {
+      line-height: 1.5;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #ece9df;
+      padding: 5px 9px;
+      border-radius: 20px;
+      font-size: 12px;
+      margin: 3px;
+    }
+
+    .report button {
+      padding: 9px 12px;
+      margin: 5px 5px 0 0;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .resolve {
+      background: var(--green);
+      color: white;
+    }
+
+    .delete {
+      background: #f5e3e1;
+      color: var(--red);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 25px 5px;
+      color: var(--gray);
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      background: var(--dark);
+      color: white;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 500px) {
+      .stats {
+        grid-template-columns: 1fr;
+      }
+
+      .panel {
+        padding: 17px;
+      }
+
+      header h1 {
+        font-size: 29px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>FREE SOUL</h1>
+    <p>Plataforma de Gestión Empresarial</p>
+  </header>
+
+  <nav>
+    <button onclick="mostrarSeccion('formulario')">
+      Registrar reporte
+    </button>
+    <button onclick="mostrarSeccion('administracion')">
+      Panel administrativo
+    </button>
+  </nav>
+
+  <main>
+    <section class="intro">
+      <h2>¡Tu opinión importa!</h2>
+      <p>
+        En Free Soul escuchamos a nuestros empleados.
+        Registra problemas y propone ideas para mejorar
+        el trabajo de nuestra empresa.
+      </p>
+    </section>
+
+    <section id="formulario" class="panel">
+      <h2>Registrar un problema o sugerencia</h2>
+      <p>Completa los siguientes datos.</p>
+
+      <form id="reportForm">
+
+        <label for="nombre">Nombre del empleado (opcional)</label>
+        <input id="nombre" type="text"
+               placeholder="Escribe tu nombre">
+
+        <label for="area">Área de la empresa</label>
+        <select id="area" required>
+          <option value="">Selecciona un área</option>
+          <option>Ventas</option>
+          <option>Inventario</option>
+          <option>Atención al cliente</option>
+          <option>Administración</option>
+          <option>Recursos humanos</option>
+        </select>
+
+        <label for="prioridad">Prioridad</label>
+        <select id="prioridad" required>
+          <option value="Normal">Normal</option>
+          <option value="Urgente">Urgente</option>
+          <option value="Baja">Baja</option>
+        </select>
+
+        <label for="problema">Problema o situación</label>
+        <textarea id="problema"
+          placeholder="Explica qué está sucediendo..."
+          required></textarea>
+
+        <label for="solucion">Propuesta de solución</label>
+        <textarea id="solucion"
+          placeholder="¿Qué solución propones?"
+          required></textarea>
+
+        <button class="primary" type="submit">
+          Enviar reporte
+        </button>
+
+      </form>
+    </section>
+
+    <section id="administracion" class="panel hidden">
+      <h2>Panel administrativo</h2>
+      <p>
+        Aquí se pueden revisar los reportes y actualizar
+        su estado.
+      </p>
+
+      <div class="stats">
+        <div class="stat">
+          <strong id="total">0</strong>
+          Total de reportes
+        </div>
+        <div class="stat">
+          <strong id="pendientes">0</strong>
+          Pendientes
+        </div>
+        <div class="stat">
+          <strong id="resueltos">0</strong>
+          Resueltos
+        </div>
+      </div>
+
+      <div class="filters">
+        <select id="filtroEstado">
+          <option value="Todos">Todos los estados</option>
+          <option value="Pendiente">Pendientes</option>
+          <option value="Resuelto">Resueltos</option>
+        </select>
+
+        <select id="filtroArea">
+          <option value="Todas">Todas las áreas</option>
+          <option>Ventas</option>
+          <option>Inventario</option>
+          <option>Atención al cliente</option>
+          <option>Administración</option>
+          <option>Recursos humanos</option>
+        </select>
+      </div>
+
+      <div id="listaReportes"></div>
+
+      <button class="secondary" onclick="agregarEjemplo()">
+        Cargar reporte de ejemplo
+      </button>
+
+      <button class="secondary" onclick="borrarTodos()">
+        Borrar todos los reportes
+      </button>
+    </section>
+  </main>
+
+  <footer>
+    <strong>FREE SOUL</strong>
+    <br>
+    Proyecto educativo de gestión empresarial.
+    <br>
+    Escuchar, mejorar y crecer juntos.
+  </footer>
+
+  <script>
+    const CLAVE = "freeSoulReportes";
+    let reportes = cargarReportes();
+
+    function cargarReportes() {
+      try {
+        return JSON.parse(localStorage.getItem(CLAVE)) || [];
+      } catch (error) {
+        return [];
+      }
+    }
+
+    function guardarReportes() {
+      localStorage.setItem(CLAVE, JSON.stringify(reportes));
+      mostrarReportes();
+    }
+
+    function mostrarSeccion(id) {
+      document.getElementById("formulario")
+        .classList.toggle("hidden", id !== "formulario");
+
+      document.getElementById("administracion")
+        .classList.toggle("hidden", id !== "administracion");
+
+      if (id === "administracion") {
+        mostrarReportes();
+      }
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    document.getElementById("reportForm")
+      .addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const reporte = {
+          id: Date.now() + Math.random(),
+          nombre: document.getElementById("nombre").value.trim()
+            || "Anónimo",
+          area: document.getElementById("area").value,
+          prioridad: document.getElementById("prioridad").value,
+          problema: document.getElementById("problema").value.trim(),
+          solucion: document.getElementById("solucion").value.trim(),
+          fecha: new Date().toLocaleDateString("es-SV"),
+          estado: "Pendiente"
+        };
+
+        reportes.unshift(reporte);
+        guardarReportes();
+        this.reset();
+
+        alert("¡Reporte registrado correctamente!");
+        mostrarSeccion("administracion");
+      });
+
+    function crearTexto(tag, texto, clase) {
+      const elemento = document.createElement(tag);
+      elemento.textContent = texto;
+
+      if (clase) {
+        elemento.className = clase;
+      }
+
+      return elemento;
+    }
+
+    function mostrarReportes() {
+      const lista = document.getElementById("listaReportes");
+      const estado = document.getElementById("filtroEstado").value;
+      const area = document.getElementById("filtroArea").value;
+
+      document.getElementById("total").textContent = reportes.length;
+      document.getElementById("pendientes").textContent =
+        reportes.filter(r => r.estado === "Pendiente").length;
+      document.getElementById("resueltos").textContent =
+        reportes.filter(r => r.estado === "Resuelto").length;
+
+      lista.replaceChildren();
+
+      const filtrados = reportes.filter(r =>
+        (estado === "Todos" || r.estado === estado) &&
+        (area === "Todas" || r.area === area)
+      );
+
+      if (filtrados.length === 0) {
+        lista.appendChild(
+          crearTexto("p", "No hay reportes para mostrar.", "empty")
+        );
+        return;
+      }
+
+      filtrados.forEach(reporte => {
+        const tarjeta = document.createElement("article");
+        tarjeta.className = "report" +
+          (reporte.estado === "Resuelto" ? " resolved" : "");
+
+        tarjeta.appendChild(
+          crearTexto("h3", reporte.area)
+        );
+
+        tarjeta.appendChild(
+          crearTexto("span", "Estado: " + reporte.estado, "tag")
+        );
+
+        tarjeta.appendChild(
+          crearTexto("span", "Prioridad: " + reporte.prioridad, "tag")
+        );
+
+        tarjeta.appendChild(
+          crearTexto("p", "Empleado: " + reporte.nombre)
+        );
+
+        tarjeta.appendChild(
+          crearTexto("p", "Fecha: " + reporte.fecha)
+        );
+
+        tarjeta.appendChild(
+          crearTexto("p", "Problema: " + reporte.problema)
+        );
+
+        tarjeta.appendChild(
+          crearTexto("p", "Solución propuesta: " + reporte.solucion)
+        );
+
+        if (reporte.estado === "Pendiente") {
+          const botonResolver = crearTexto(
+            "button", "Marcar como resuelto", "resolve"
+          );
+
+          botonResolver.type = "button";
+          botonResolver.addEventListener("click", () => {
+            cambiarEstado(reporte.id);
+          });
+
+          tarjeta.appendChild(botonResolver);
+        }
+
+        const botonEliminar = crearTexto(
+          "button", "Eliminar reporte", "delete"
+        );
+
+        botonEliminar.type = "button";
+        botonEliminar.addEventListener("click", () => {
+          eliminarReporte(reporte.id);
+        });
+
+        tarjeta.appendChild(botonEliminar);
+        lista.appendChild(tarjeta);
+      });
+    }
+
+    function cambiarEstado(id) {
+      reportes = reportes.map(r =>
+        r.id === id ? { ...r, estado: "Resuelto" } : r
+      );
+
+      guardarReportes();
+    }
+
+    function eliminarReporte(id) {
+      if (confirm("¿Deseas eliminar este reporte?")) {
+        reportes = reportes.filter(r => r.id !== id);
+        guardarReportes();
+      }
+    }
+
+    function agregarEjemplo() {
+      reportes.unshift({
+        id: Date.now() + Math.random(),
+        nombre: "Empleado de ejemplo",
+        area: "Inventario",
+        prioridad: "Urgente",
+        problema: "Hay pocas unidades de algunas prendas.",
+        solucion: "Revisar las existencias y solicitar más productos.",
+        fecha: new Date().toLocaleDateString("es-SV"),
+        estado: "Pendiente"
+      });
+
+      guardarReportes();
+    }
+
+    function borrarTodos() {
+      if (confirm("¿Deseas borrar todos los reportes?")) {
+        reportes = [];
+        guardarReportes();
+      }
+    }
+
+    document.getElementById("filtroEstado")
+      .addEventListener("change", mostrarReportes);
+
+    document.getElementById("filtroArea")
+      .addEventListener("change", mostrarReportes);
+
+    mostrarReportes();
+  </script>
+
+</body>
+</html>
